@@ -79,7 +79,7 @@ def main():
             enemy.draw(WIN)
 
         player.draw(WIN)
-        lasers.draw()
+        lasers.draw(WIN)
 
         if lost:
             lost_label = lost_font.render("You Lost!!", 1, (255,255,255))
