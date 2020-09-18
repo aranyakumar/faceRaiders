@@ -55,3 +55,12 @@ You can use `imshow` on the mask for testing purposes.  Note that `inRange` incl
 
 ## Getting the Mask Range
 Since we do not know what color the background will be we have to find it somehow. One way you could do this is get user input by clicking on the area of the picture that is background. [This](https://docs.opencv.org/3.1.0/db/d5b/tutorial_py_mouse_handling.html) demonstrates how you can handle a mouse click on a picture. Another approach you could try is blob detection. [Here](https://www.learnopencv.com/blob-detection-using-opencv-python-c/) is a tutorial on blob detection in OpenCV.
+
+## Applying the Mask
+To apply the mask to the original image we need to convert to BGRA color space. This adds an Alpha channel that determines the transparency of each pixel. We want to set the Alpha channel of our image to the mask.
+`image[:,:, 3] = mask`
+This will set the alpha channel of `image` to `mask`. Note that `imshow` does not show transparency, so you will not see any change when you display it. However, when you use `imwrite` to write it to a file, it will include the transparency.
+
+If you would like to see the result of applying your mask without having to write to a file, you can apply the mask by making the outside areas black instead of transparent.
+`cv.bitwise_and(image, image, mask=mask)`
+This returns the `image` with areas outside the mask as black. `imshow` will show the changes for this.

@@ -3,6 +3,11 @@ import os
 import time
 import random
 pygame.font.init()
+import Ship
+import Player
+import Lasers
+import Laser
+import Enemy
 
 ### Can be changed based on if you want full-screen or not
 WIDTH, HEIGHT = 750, 750
@@ -35,6 +40,8 @@ YELLOW_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_yellow.png"
     ####
 BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")), (WIDTH, HEIGHT))
 
+
+
 def main():
     run = True
     FPS = 60
@@ -51,6 +58,8 @@ def main():
     laser_vel = 5
 
     player = Player(300, 630)
+
+    lasers = Lasers()
 
     clock = pygame.time.Clock()
 
@@ -70,6 +79,7 @@ def main():
             enemy.draw(WIN)
 
         player.draw(WIN)
+        lasers.draw()
 
         if lost:
             lost_label = lost_font.render("You Lost!!", 1, (255,255,255))
@@ -91,48 +101,35 @@ def main():
             else:
                 continue
 
-        if len(enemies) == 0:
-            level += 1
-            wave_length += 5
-            for i in range(wave_length):
-                enemy = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500, -100), random.choice(["red", "blue", "green"]))
-                enemies.append(enemy)
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
 
+        ### Periodically spawn enemies here
+
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a] and player.x - player_vel > 0: # left
-            Player.move_left()
+            player.move_left()
         if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # right
-            Player.move_right()
+            player.move_right()
         if keys[pygame.K_w] and player.y - player_vel > 0: # up
-            Player.move_up()
+            player.move_up()
         if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # down
-            Player.move_down()
+            player.move_down()
         if keys[pygame.K_q]: #  rotate left
-            Player.rotate_left()
+            player.rotate_left()
         if keys[pygame.K_e]: # rotate right
-            Player.rotate_right()
+            player.rotate_right()
         if keys[pygame.K_SPACE]:
-            Player.shoot()
+            ### spawn a laser from the player
 
         for enemy in enemies[:]:
-            enemy.move(enemy_vel)
-            enemy.move_lasers(laser_vel, player)
+            ### Fill in logic for moving enemies. Remove a life and enemy if it reaches the bottom
 
-            if random.randrange(0, 2*60) == 1:
-                enemy.shoot()
+        lasers.update()
 
-            if collide(enemy, player):
-                player.health -= 10
-                enemies.remove(enemy)
-            elif enemy.y + enemy.get_height() > HEIGHT:
-                lives -= 1
-                enemies.remove(enemy)
+        ### Check for laser collisions with player or enemies. Remove a life or the enemies if necessary.
 
-        player.move_lasers(-laser_vel, enemies)
 
 def main_menu():
     title_font = pygame.font.SysFont("comicsans", 70)

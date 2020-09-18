@@ -7,13 +7,16 @@ pygame.font.init()
 ## Controls both enemy and player
 class Ship:
 
-    ### Initialize self and projectiles of Player_1
-    def __init__(self):
+    ### Initialize self and projectiles of Player_1. Initialize self.mask from image. Initialize self.x, self.y, self.rotation
+    def __init__(self, x, y, rotation, image):
 
-    ### Draw all projectiles created
-    def draw(self):
+    ### Draw this ship
+    def draw(self, window):
 
-    ### Shoot animation (when to shoot, automatic/manual)
+    ### Returns a boolean if the ship can shoot or not
+    def can_shoot(self):
+
+    ### Shoot a laser. Enforce cooldown on shooting
     def shoot(self, lasers):
 
     ### Dimensions of player

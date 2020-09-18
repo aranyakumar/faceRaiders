@@ -2,17 +2,14 @@ import pygame
 import os
 import time
 import random
+import Ship
 pygame.font.init()
 
 ## Animations for Player
-class Player(Player_1):
+class Player(Ship):
 
     ### Initialize the player image and any properties
-    def __init__(self, x, y):
-        super().__init__(x, y)
-
-    ### Animation for projectiles
-    def move_lasers(self):
+    def __init__(self, x, y, rotation):
 
     ### Move player based on key strokes
     def move_right(self):
