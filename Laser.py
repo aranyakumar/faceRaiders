@@ -13,7 +13,6 @@ class Laser:
         self.rotation = rotation #0 rad is vertically up, pi is directly down
         self.img = img
         self.speed = speed
-        self.
 
     def draw(self, window):
         window.blit(self.img, (self.x, self.y))
