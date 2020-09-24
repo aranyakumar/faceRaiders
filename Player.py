@@ -35,8 +35,7 @@ class Player(Ship):
     def move_down(self):
         if (self.y < 750):
             self.y += 1
-
-    #Am I doing this rotation correct?    
+   
     def rotate_right(self):
             self.rotation += math.pi/4
 
@@ -45,7 +44,7 @@ class Player(Ship):
            self.rotation -= math.pi/4
 
     ### Creating a window
-    def draw(self, window):    #I'm confuse here
+    def draw(self, window):    
         super().draw(window)
         
 
