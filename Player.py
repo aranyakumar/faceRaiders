@@ -18,8 +18,6 @@ class Player(Ship):
         self.ship_img = YELLOW_SPACE_SHIP
 
     ### Move player based on key strokes
-    keys = pygame.key.get_pressed()
-
     def move_right(self):
         if (self.x < 750):
             self.x += 1
