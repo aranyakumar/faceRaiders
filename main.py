@@ -2,12 +2,14 @@ import pygame
 import os
 import time
 import random
+
+from Ship import Ship
+from Player import Player
+from Lasers import Lasers
+from Laser import Laser
+from Enemy import Enemy
+
 pygame.font.init()
-import Ship
-import Player
-import Lasers
-import Laser
-import Enemy
 
 ### Can be changed based on if you want full-screen or not
 WIDTH, HEIGHT = 750, 750
@@ -18,15 +20,15 @@ pygame.display.set_caption("Face Raiders")
     ####
     #### Attach someone else's face from OpenCV saved image
     ####
-RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_red_small.png"))
-GREEN_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_green_small.png"))
-BLUE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_blue_small.png"))
+# RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_red_small.png"))
+# GREEN_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_green_small.png"))
+# BLUE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_blue_small.png"))
 
 # Player my_player
     ####
     #### Attach own face from OpenCV saved image
     ####
-YELLOW_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_yellow.png"))
+YELLOW_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_yellow.png"))
 
 # Lasers
 RED_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_red.png"))
@@ -57,7 +59,7 @@ def main():
     player_vel = 5
     laser_vel = 5
 
-    player = Player(300, 630)
+    player = Player(300, 630, 0)
 
     lasers = Lasers()
 
@@ -110,20 +112,21 @@ def main():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a] and player.x - player_vel > 0: # left
             player.move_left()
-        if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # right
+        if keys[pygame.K_d] and player.x + player_vel < WIDTH: # right
             player.move_right()
         if keys[pygame.K_w] and player.y - player_vel > 0: # up
             player.move_up()
-        if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # down
+        if keys[pygame.K_s] and player.y + player_vel  < HEIGHT: # down
             player.move_down()
         if keys[pygame.K_q]: #  rotate left
             player.rotate_left()
         if keys[pygame.K_e]: # rotate right
             player.rotate_right()
         if keys[pygame.K_SPACE]:
-            ### spawn a laser from the player
+            player.shoot(lasers)
 
         for enemy in enemies[:]:
+            pass
             ### Fill in logic for moving enemies. Remove a life and enemy if it reaches the bottom
 
         lasers.update()
