@@ -111,11 +111,11 @@ def main():
             color = random.randint(3,1)
             side = WIDTH*random.rand()
             if (color == 0):
-                enemies.append(Enemy(side, 750,0, BLUE_SPACE_SHIP))
+                enemies.append(Enemy(side, 0,0, BLUE_SPACE_SHIP))
             elif color == 1:
-                enemies.append(Enemy(side, 750,0, RED_SPACE_SHIP))
+                enemies.append(Enemy(side, 0,0, RED_SPACE_SHIP))
             else:
-                enemies.append(Enemy(side, 750,0, YELLOW_SPACE_SHIP))
+                enemies.append(Enemy(side, 0,0, YELLOW_SPACE_SHIP))
                 x = random.randint(10)
         else:
             x = x - 1
@@ -136,11 +136,14 @@ def main():
             player.rotate_right()
         if keys[pygame.K_SPACE]:
             ### spawn a laser from the player
-            lasers.append(Laser())
+            lasers.spawn(Laser(player.x, player.y, player.rotation,RED_LASER))
 
         for enemy in enemies[:]:
             ### Fill in logic for moving enemies. Remove a life and enemy if it reaches the bottom
             enemy.move(player.x, player.y)
+            if enemy.y == 750:
+                enemies.remove(enemy)
+                lives -= 1
 
         lasers.update()
 
@@ -148,7 +151,7 @@ def main():
         if lasers.collide_player():
             lives -= 1
         for enemy in lasers.collide_enemy(enemies):
-            
+            enemies.remove(enemy)
 
 def main_menu():
     title_font = pygame.font.SysFont("comicsans", 70)
