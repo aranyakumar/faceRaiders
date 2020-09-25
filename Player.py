@@ -4,18 +4,16 @@ import pygame
 import os
 import time
 import random
-import Ship
+from Ship import Ship
 import math
 pygame.font.init()
 
 ## Animations for Player
 class Player(Ship):
-    cooldown_timer = 0
 
     ### Initialize the player image and any properties
     def __init__(self, x, y, rotation):
-        super().__init__(x, y, rotation)
-        self.ship_img = YELLOW_SPACE_SHIP
+        super().__init__(x, y, rotation, YELLOW_SPACE_SHIP)
 
     ### Move player based on key strokes
     def move_right(self):
