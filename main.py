@@ -3,6 +3,7 @@ import os
 import time
 import random
 pygame.font.init()
+
 from Ship import Ship
 from Player import Player
 from Lasers import Lasers
@@ -28,6 +29,7 @@ BLUE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_blue
     ####
 YELLOW_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_yellow.png"))
 
+
 # Lasers
 RED_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_red.png"))
 GREEN_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_green.png"))
@@ -39,8 +41,6 @@ YELLOW_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_yellow.png"
     #### Attach any background you like
     ####
 BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")), (WIDTH, HEIGHT))
-
-
 
 def main():
     run = True
@@ -58,8 +58,9 @@ def main():
     laser_vel = 5
 
     player = Player(300, 630)
-
+    
     lasers = Lasers()
+
 
     clock = pygame.time.Clock()
 
@@ -79,6 +80,7 @@ def main():
             enemy.draw(WIN)
 
         player.draw(WIN)
+        
         lasers.draw(WIN)
 
         if lost:
@@ -100,11 +102,11 @@ def main():
                 run = False
             else:
                 continue
-
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
-
+                
         ### Periodically spawn enemies here
         x = 0
         if x < 0:
