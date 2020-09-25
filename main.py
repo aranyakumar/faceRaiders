@@ -107,20 +107,19 @@ def main():
 
         ### Periodically spawn enemies here
         x = 0
-        angle = 
-        if x > 5:
-            rand = random()
-            if rand < .25:
-                enemies.append(Enemy(750*random(),750, 0, RED_SPACE_SHIP))
-            elif (rand > .25 and rand < .5):
-                enemies.append(Enemy(750*random(),0, 0, RED_SPACE_SHIP))
-            elif (rand > .5 and rand < .75):
-                enemies.append(Enemy(750,750*random(), 0, RED_SPACE_SHIP))
+        if x < 0:
+            color = random.randint(3,1)
+            side = WIDTH*random.rand()
+            if (color == 0):
+                enemies.append(Enemy(side, 750,0, BLUE_SPACE_SHIP))
+            elif color == 1:
+                enemies.append(Enemy(side, 750,0, RED_SPACE_SHIP))
             else:
-                enemies.append(Enemy(0,750*random(), 0, RED_SPACE_SHIP))
-                
+                enemies.append(Enemy(side, 750,0, YELLOW_SPACE_SHIP))
+                x = random.randint(10)
         else:
-            x += 1
+            x = x - 1
+
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a] and player.x - player_vel > 0: # left
@@ -146,7 +145,10 @@ def main():
         lasers.update()
 
         ### Check for laser collisions with player or enemies. Remove a life or the enemies if necessary.
-
+        if lasers.collide_player():
+            lives -= 1
+        for enemy in lasers.collide_enemy(enemies):
+            
 
 def main_menu():
     title_font = pygame.font.SysFont("comicsans", 70)
