@@ -106,6 +106,21 @@ def main():
                 quit()
 
         ### Periodically spawn enemies here
+        x = 0
+        angle = 
+        if x > 5:
+            rand = random()
+            if rand < .25:
+                enemies.append(Enemy(750*random(),750, 0, RED_SPACE_SHIP))
+            elif (rand > .25 and rand < .5):
+                enemies.append(Enemy(750*random(),0, 0, RED_SPACE_SHIP))
+            elif (rand > .5 and rand < .75):
+                enemies.append(Enemy(750,750*random(), 0, RED_SPACE_SHIP))
+            else:
+                enemies.append(Enemy(0,750*random(), 0, RED_SPACE_SHIP))
+                
+        else:
+            x += 1
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a] and player.x - player_vel > 0: # left
@@ -122,9 +137,11 @@ def main():
             player.rotate_right()
         if keys[pygame.K_SPACE]:
             ### spawn a laser from the player
+            lasers.append(Laser())
 
         for enemy in enemies[:]:
             ### Fill in logic for moving enemies. Remove a life and enemy if it reaches the bottom
+            enemy.move(player.x, player.y)
 
         lasers.update()
 
