@@ -3,11 +3,11 @@ import os
 import time
 import random
 pygame.font.init()
-import Ship
-import Player
-import Lasers
-import Laser
-import Enemy
+from Ship import Ship
+from Player import Player
+from Lasers import Lasers
+from Laser import Laser
+from Enemy import Enemy
 
 ### Can be changed based on if you want full-screen or not
 WIDTH, HEIGHT = 750, 750
@@ -162,7 +162,7 @@ def main_menu():
         WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 350))
         pygame.display.update()
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT:   
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 main()
