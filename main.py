@@ -3,11 +3,11 @@ import os
 import time
 import random
 pygame.font.init()
-import Ship
-import Player
-import Lasers
-import Laser
-import Enemy
+from Ship import Ship
+from Player import Player
+from Lasers import Lasers
+from Laser import Laser
+from Enemy import Enemy
 
 ### Can be changed based on if you want full-screen or not
 WIDTH, HEIGHT = 750, 750
@@ -106,6 +106,20 @@ def main():
                 quit()
 
         ### Periodically spawn enemies here
+        x = 0
+        if x < 0:
+            color = random.randint(3,1)
+            side = WIDTH*random.rand()
+            if (color == 0):
+                enemies.append(Enemy(side, 0,0, BLUE_SPACE_SHIP))
+            elif color == 1:
+                enemies.append(Enemy(side, 0,0, RED_SPACE_SHIP))
+            else:
+                enemies.append(Enemy(side, 0,0, YELLOW_SPACE_SHIP))
+                x = random.randint(10)
+        else:
+            x = x - 1
+
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a] and player.x - player_vel > 0: # left
@@ -123,14 +137,22 @@ def main():
         if keys[pygame.K_SPACE]:
             player.shoot()
             ### spawn a laser from the player
+            lasers.spawn(Laser(player.x, player.y, player.rotation,RED_LASER))
 
         for enemy in enemies[:]:
             ### Fill in logic for moving enemies. Remove a life and enemy if it reaches the bottom
+            enemy.move(player.x, player.y)
+            if enemy.y == 750:
+                enemies.remove(enemy)
+                lives -= 1
 
         lasers.update()
 
         ### Check for laser collisions with player or enemies. Remove a life or the enemies if necessary.
-
+        if lasers.collide_player():
+            lives -= 1
+        for enemy in lasers.collide_enemy(enemies):
+            enemies.remove(enemy)
 
 def main_menu():
     title_font = pygame.font.SysFont("comicsans", 70)
@@ -141,7 +163,7 @@ def main_menu():
         WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 350))
         pygame.display.update()
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT:   
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 main()
