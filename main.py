@@ -121,6 +121,7 @@ def main():
         if keys[pygame.K_e]: # rotate right
             player.rotate_right()
         if keys[pygame.K_SPACE]:
+            player.shoot()
             ### spawn a laser from the player
 
         for enemy in enemies[:]:
