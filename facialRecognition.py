@@ -1,8 +1,41 @@
-import cv2 as cv
-import numpy as np
-a = cv.imread("mother.jpg")
-image = cv.cvtColor(a, cv.COLOR_BGR2HSV)
-cv.imshow('window!', a)
-cv.waitKey(0)
-cv.imwrite("doesthiswork.jpg",a)
+import cv2
+import sys
+import math
+
+# Get user supplied values
+imagePath = "mother.jpg"
+cascPath = "haarcascade_frontalface_default.xml"
+
+# Create the haar cascade
+faceCascade = cv2.CascadeClassifier(cascPath)
+
+# Read the image
+image = cv2.imread(imagePath)
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Detect faces in the image
+faces = faceCascade.detectMultiScale(
+    gray,
+    scaleFactor=1.1,
+    minNeighbors=5,
+    minSize=(30, 30)
+    #flags = cv2.CV_HAAR_SCALE_IMAGE
+)
+
+print("Found {0} faces!".format(len(faces)))
+cv2.imshow("Faces found", image)
+
+cv2.waitKey(0)
+
+# Draw a rectangle around the faces
+(x, y, w, h) = faces[0]
+p = .5
+x = math.floor((1-p)*x)
+y = math.floor((1-p)*y)
+w = math.floor((1+2*p)*w)
+h = math.floor((1+2*p)*h)
+image = image[y:y+h, x:x+w]
+cv2.imshow("Faces found", image)
+
+cv2.waitKey(0)
 
