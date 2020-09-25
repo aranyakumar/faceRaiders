@@ -1,5 +1,3 @@
-from Lasers import Lasers
-from main import YELLOW_LASER, YELLOW_SPACE_SHIP
 import pygame
 import os
 import time
@@ -13,7 +11,7 @@ class Player(Ship):
 
     ### Initialize the player image and any properties
     def __init__(self, x, y, rotation):
-        super().__init__(x, y, rotation, YELLOW_SPACE_SHIP)
+        super().__init__(x, y, rotation, pygame.image.load(os.path.join("assets", "pixel_ship_yellow.png")))
 
     ### Move player based on key strokes
     def move_right(self):
@@ -44,5 +42,5 @@ class Player(Ship):
 
     ### Add health bar or any other player properties below
     def shoot(self, lasers):
-        if (super.can_shoot()):
+        if (super().can_shoot()):
             super().shoot(lasers)

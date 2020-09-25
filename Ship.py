@@ -15,6 +15,7 @@ class Ship:
         self.image = image
         self.rotation = rotation
         self.cool_down_counter = 0
+        self.mask = pygame.mask.from_surface(self.image)
 
     ### Draw this ship
     def draw(self, window):
@@ -37,11 +38,11 @@ class Ship:
 
     ### Dimensions of player
     def get_width(self):
-        return self.ship_img.get_width()
+        return self.image.get_width()
 
     ### Dimensions of player
     def get_height(self):
-        return self.ship_img.get_height()
+        return self.image.get_height()
 
     ### Get location of player
     def get_location(self):

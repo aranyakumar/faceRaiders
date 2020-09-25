@@ -19,15 +19,15 @@ pygame.display.set_caption("Face Raiders")
     ####
     #### Attach someone else's face from OpenCV saved image
     ####
-RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_red_small.png"))
-GREEN_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_green_small.png"))
-BLUE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_blue_small.png"))
+RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_red_small.png"))
+GREEN_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_green_small.png"))
+BLUE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_blue_small.png"))
 
 # Player my_player
     ####
     #### Attach own face from OpenCV saved image
     ####
-YELLOW_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_my_player_yellow.png"))
+YELLOW_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_yellow.png"))
 
 
 # Lasers
@@ -57,7 +57,7 @@ def main():
     player_vel = 5
     laser_vel = 5
 
-    player = Player(300, 630)
+    player = Player(300, 630, 0)
     
     lasers = Lasers()
 
@@ -93,7 +93,7 @@ def main():
         clock.tick(FPS)
         redraw_window()
 
-        if lives <= 0 or player.health <= 0:
+        if lives <= 0:
             lost = True
             lost_count += 1
 
@@ -137,9 +137,7 @@ def main():
         if keys[pygame.K_e]: # rotate right
             player.rotate_right()
         if keys[pygame.K_SPACE]:
-            player.shoot()
-            ### spawn a laser from the player
-            lasers.spawn(Laser(player.x, player.y, player.rotation,RED_LASER))
+            player.shoot(lasers)
 
         for enemy in enemies[:]:
             ### Fill in logic for moving enemies. Remove a life and enemy if it reaches the bottom
@@ -151,7 +149,7 @@ def main():
         lasers.update()
 
         ### Check for laser collisions with player or enemies. Remove a life or the enemies if necessary.
-        if lasers.collide_player():
+        if lasers.collide_player(player):
             lives -= 1
         for enemy in lasers.collide_enemy(enemies):
             enemies.remove(enemy)
