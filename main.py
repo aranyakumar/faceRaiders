@@ -2,8 +2,8 @@ import pygame
 import os
 import time
 import random
+import math
 pygame.font.init()
-
 from Ship import Ship
 from Player import Player
 from Lasers import Lasers
@@ -88,7 +88,7 @@ def main():
             WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
 
         pygame.display.update()
-
+    x = 0
     while run:
         clock.tick(FPS)
         redraw_window()
@@ -108,17 +108,17 @@ def main():
                 quit()
                 
         ### Periodically spawn enemies here
-        x = 0
+     
         if x < 0:
-            color = random.randint(3,1)
-            side = WIDTH*random.rand()
+            color = random.randint(1,3)
+            side = math.floor(WIDTH*random.random())
             if (color == 0):
                 enemies.append(Enemy(side, 0,0, BLUE_SPACE_SHIP))
             elif color == 1:
                 enemies.append(Enemy(side, 0,0, RED_SPACE_SHIP))
             else:
                 enemies.append(Enemy(side, 0,0, YELLOW_SPACE_SHIP))
-                x = random.randint(10)
+                x = random.randint(1, 10)
         else:
             x = x - 1
 
@@ -141,7 +141,7 @@ def main():
 
         for enemy in enemies[:]:
             ### Fill in logic for moving enemies. Remove a life and enemy if it reaches the bottom
-            enemy.move(player.x, player.y)
+            enemy.move(player.x, player.y, lasers)
             if enemy.y == 750:
                 enemies.remove(enemy)
                 lives -= 1

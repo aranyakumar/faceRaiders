@@ -17,12 +17,13 @@ class Laser:
         self.obj = obj
 
     def draw(self, window):
-        window.blit(self.img, (self.x, self.y))
+        magic = pygame.transform.rotate(self.img, (180 / math.pi) * self.rotation)
+        window.blit(magic, (self.x, self.y))
 
     ### Laser moves in a straight line. Optional: add logic for bouncing off of edge
     ### PASS THRU WINDOW MAX X PLS!!!
     def move(self):
-        if (self.x > 750):
+        if (self.x > 750 or self.x < 0):
             self.rotation = -self.rotation
         self.x += self.speed*math.sin(self.rotation)
         self.y += self.speed*math.cos(self.rotation)

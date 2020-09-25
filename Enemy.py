@@ -18,11 +18,11 @@ class Enemy(Ship):
         self.y = self.y+1
 
         if player_x < self.x:
-            self.rotation = math.arctan((player_y-self.y)/(player_x - self.x)) + math.pi
+            self.rotation = math.atan((player_y-self.y)/(player_x - self.x)) + math.pi
         elif player_x == self.x:
             self.rotation = math.pi    
         else: 
-             self.rotation = math.arctan((player_y-self.y)/(player_x - self.x)) + math.pi/2
+             self.rotation = math.atan((player_y-self.y)/(player_x - self.x)) + math.pi/2
 
 
         if super().can_shoot():
