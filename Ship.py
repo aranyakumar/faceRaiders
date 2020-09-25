@@ -2,6 +2,7 @@ import pygame
 import os
 import time
 import random
+import math
 pygame.font.init()
 
 ## Controls both enemy and player
@@ -19,7 +20,7 @@ class Ship:
 
     ### Draw this ship
     def draw(self, window):
-        magic = pygame.transform.rotate(self.image, self.rotation)
+        magic = pygame.transform.rotate(self.image, (180 / math.pi) * self.rotation)
         window.blit(magic,(self.x,self.y))
         self.cool_down_counter = self.cool_down_counter + 1
 
