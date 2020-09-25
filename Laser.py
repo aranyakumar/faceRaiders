@@ -12,6 +12,7 @@ class Laser:
         self.y = y
         self.rotation = rotation #0 rad is vertically up, pi is directly down
         self.img = img
+        self.mask = pygame.mask.from_surface(self.img)
         self.speed = speed
 
     def draw(self, window):
@@ -19,13 +20,13 @@ class Laser:
 
     ### Laser moves in a straight line. Optional: add logic for bouncing off of edge
     ### PASS THRU WINDOW MAX X PLS!!!
-    def move(self, max_x):
-        if (self.x > max_x):
+    def move(self):
+        if (self.x > 750):
             self.rotation = -self.rotation
         self.x += self.speed*math.sin(self.rotation)
         self.y += self.speed*math.cos(self.rotation)
     ##?!?!?!?! wtf
-    def off_screen(self, max_y):
-        if self.y > max_y:
+    def off_screen(self):
+        if self.y < 0 or self.y > 750:
             return True
         return False
