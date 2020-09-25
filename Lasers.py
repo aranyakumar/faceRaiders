@@ -40,11 +40,11 @@ class Lasers:
 
     ### Returns a list of enemies that collided with a laser. Removes those lasers
     def collide_enemy(self, enemies):
-        ret = []
+        ret = set()
         for e in enemies:
             for l in self.lasers:
                 if l.obj != e and collide(l, e):
-                    ret.append(e)
+                    ret.add(e)
                     self.lasers.remove(l)
         return ret
 
