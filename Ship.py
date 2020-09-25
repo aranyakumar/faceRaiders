@@ -33,7 +33,7 @@ class Ship:
     ### Shoot a laser. Enforce cooldown on shooting
     def shoot(self, lasers):
         '''call lasers.spawn from the lasers class'''
-        lasers.spawn(self.x,self.y,self.rotation)
+        lasers.spawn(self.x,self.y,self.rotation, self)
         self.cool_down_counter = 0
 
     ### Dimensions of player

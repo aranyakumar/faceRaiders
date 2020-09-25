@@ -7,13 +7,14 @@ pygame.font.init()
 
 ## Projectile of players
 class Laser:
-    def __init__(self, x, y, rotation, img, speed = 10):
+    def __init__(self, x, y, rotation, img, obj, speed = 10):
         self.x = x 
         self.y = y
         self.rotation = rotation #0 rad is vertically up, pi is directly down
         self.img = img
         self.mask = pygame.mask.from_surface(self.img)
         self.speed = speed
+        self.obj = obj
 
     def draw(self, window):
         window.blit(self.img, (self.x, self.y))

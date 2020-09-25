@@ -15,8 +15,8 @@ class Lasers:
         self.image = pygame.image.load(os.path.join("assets", "pixel_laser_red.png"))
 
     ### Spawn a new laser at position to direction
-    def spawn(self, x, y, direction):
-        self.lasers.append(Laser(x, y, direction, self.image))
+    def spawn(self, x, y, direction, obj):
+        self.lasers.append(Laser(x, y, direction, self.image, obj))
    
    ### Move all lasers, remove lasers offscreen
     def update(self):
@@ -33,7 +33,7 @@ class Lasers:
     ### Return boolean if any laser hits a player. Removes that laser
     def collide_player(self, player):
         for l in self.lasers:
-            if collide(l, player):
+            if l.obj != player and collide(l, player):
                 self.lasers.remove(l)
                 return True
         return False
@@ -43,7 +43,7 @@ class Lasers:
         ret = []
         for e in enemies:
             for l in self.lasers:
-                if collide(l, e):
+                if l.obj != e and collide(l, e):
                     ret.append(e)
                     self.lasers.remove(l)
         return ret
