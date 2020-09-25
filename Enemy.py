@@ -6,6 +6,7 @@ pygame.font.init()
 import Ship
 import math
 
+
 class Enemy(Ship):
 
     def __init__(self, x, y, rotation, image):
@@ -26,7 +27,5 @@ class Enemy(Ship):
 
         if super().can_shoot():
             super().shoot(lasers)
-        
-
 
 
