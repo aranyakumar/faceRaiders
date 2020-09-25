@@ -21,7 +21,7 @@ class Laser:
     ### Laser moves in a straight line. Optional: add logic for bouncing off of edge
     ### PASS THRU WINDOW MAX X PLS!!!
     def move(self):
-        if (self.x > 750):
+        if (self.x > 750 or ):
             self.rotation = -self.rotation
         self.x += self.speed*math.sin(self.rotation)
         self.y += self.speed*math.cos(self.rotation)

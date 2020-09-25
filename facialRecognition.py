@@ -39,3 +39,12 @@ cv2.imshow("Faces found", image)
 
 cv2.waitKey(0)
 
+#blur gaussian
+gaus = cv2.GaussianBlur(image,(5,5),0)
+cv2.imshow("blur", gaus)
+cv2.waitKey(0)
+
+#blur bilateral
+bilat = cv2.bilateralFilter(image,9,75,75)
+cv2.imshow("bilat", bilat) 
+cv2.waitKey(0)
